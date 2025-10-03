@@ -230,6 +230,25 @@ Python 3.11.8
     python run.py
   ```
 
+### Docker
+
+You can also run Spotish inside a Docker container.
+
+1. Copy `example.env` to `.env` and update it with your configuration (see steps above).
+2. Build the image:
+   ```bash
+   docker build -t spotish .
+   ```
+3. Run the container, mounting a volume so downloaded songs persist and providing your environment variables:
+   ```bash
+   docker run --env-file .env \
+     -v "$(pwd)/Songs:/app/Songs" \
+     -p 5000:5000 -p 7000:7000 \
+     spotish
+   ```
+
+The Docker image installs VLC and FFmpeg so playback works out of the box. Mounting the `Songs` directory ensures tracks downloaded by the bot are available across container restarts.
+
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
